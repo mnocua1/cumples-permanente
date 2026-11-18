@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cumpleaños Permanente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* VOICE: fiesta alegre del equipo, cálida y cercana
+   IDEA: una pared de cumpleaños con banderines, globos y cartas pegadas con cinta
+   PICTURE: el próximo cumpleaños en una tarjeta fucsia con globos y confeti
+   COLOUR and TYPE: crema de fiesta con fucsia, amarillo, azul, menta y naranja; Poppins de Permanente
+   LAYOUT: banderines arriba, tarjeta grande y "lo que viene", 12 meses de colores, muro tipo polaroid */
+:root{color-scheme:light dark;--bg:light-dark(#fff8ef,#15111d);--ink:light-dark(#21173a,#fbf6ff);--soft:light-dark(#fff0dc,#231d30);--card:light-dark(#ffffff,#1d1828);--line:light-dark(#f1dcc4,#372e45);--mute:light-dark(#6d607a,#bcb0c9);--pink:#e8336f;--pinkL:#ff5c93;--yel:#ffc93c;--blue:#2f7cf6;--mint:#14b38c;--orange:#ff7438;--violet:#7c55f0;--dark:#21173a}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Poppins,system-ui,sans-serif;overflow-x:clip;background-image:radial-gradient(circle at 12% 30%,rgba(255,201,60,.22) 0 3px,transparent 4px),radial-gradient(circle at 70% 60%,rgba(232,51,111,.16) 0 3px,transparent 4px),radial-gradient(circle at 40% 85%,rgba(47,124,246,.16) 0 3px,transparent 4px),radial-gradient(circle at 88% 15%,rgba(20,179,140,.18) 0 3px,transparent 4px);background-size:180px 180px}
+.band{padding:clamp(20px,3.5vw,48px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px max(5vw,16px) 6px;background:var(--dark);color:#fff}
+.bunting{height:46px;background:var(--dark) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='46'%3E%3Cpath d='M0 4 Q75 16 150 4' fill='none' stroke='%23ffffff' stroke-opacity='.5' stroke-width='1.5'/%3E%3Cpath d='M6 5 L34 9 L18 40Z' fill='%23ff5c93'/%3E%3Cpath d='M56 10 L86 10 L71 42Z' fill='%23ffc93c'/%3E%3Cpath d='M108 9 L136 6 L124 39Z' fill='%232f7cf6'/%3E%3C/svg%3E") repeat-x 0 0;border-bottom:4px solid var(--yel)}
+.bunting.b2{background-position:75px 0;filter:hue-rotate(140deg)}
+.mark{font-weight:700;font-size:22px;letter-spacing:-.02em}
+.mark small{font-weight:400;font-size:14px;opacity:.7;margin-left:10px;letter-spacing:0}
+button,.btn{font:600 15px/1 Poppins,sans-serif;min-height:44px;padding:0 22px;border-radius:999px;border:0;background:var(--pink);color:#fff;cursor:pointer;box-shadow:0 4px 0 #a81d4d;transition:transform .1s}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 #a81d4d}
+header .btn,header button{background:var(--yel);color:var(--dark);box-shadow:0 4px 0 #c9921a}
+button.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+button.link{background:none;box-shadow:none;color:var(--mute);padding:0 6px;min-height:36px;text-decoration:underline;font-size:14px;font-weight:500}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.person:focus-visible,.next:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+button:disabled{opacity:.6;cursor:wait}
+h1{font-size:clamp(32px,5vw,52px);line-height:1.05;margin:0 0 6px;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+h2{font-size:24px;line-height:1.15;margin:0 0 14px;font-weight:700;letter-spacing:-.01em}
+.lead{color:var(--mute);margin:0;max-width:62ch}
+.note{font-size:14px;color:var(--mute);padding:12px 16px;border:2px dashed var(--line);border-radius:14px;margin-top:16px;background:var(--card)}
+.note:empty{display:none}
+.hero{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px;margin-top:26px}
+.next{position:relative;background:var(--pink);color:#fff;border-radius:30px;padding:clamp(24px,4vw,44px);overflow:hidden;min-height:360px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;box-shadow:0 10px 0 #a81d4d}
+.next svg.party{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.next>*:not(svg){position:relative}
+.next .when{font-weight:500;font-size:16px}
+.next .day{font-size:clamp(96px,16vw,184px);font-weight:700;line-height:.9;letter-spacing:-.05em;text-shadow:0 6px 0 rgba(0,0,0,.15)}
+.next .day span{font-size:clamp(22px,3vw,32px);font-weight:600;letter-spacing:-.01em;margin-left:10px;text-shadow:none}
+.next .who{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.next .who b{font-size:clamp(24px,3vw,34px);font-weight:700;line-height:1.1;background:var(--yel);color:var(--dark);padding:4px 14px;border-radius:12px;transform:rotate(-2deg)}
+.next .verse{font-style:italic;max-width:44ch;margin:12px 0 0}
+.pill{display:inline-block;font-size:14px;font-weight:700;padding:6px 14px;border-radius:999px;background:var(--yel);color:var(--dark);white-space:nowrap}
+.av{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;background:var(--yel);display:grid;place-items:center;font-weight:700;color:var(--dark);border:3px solid #fff;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.soon{background:var(--yel);color:var(--dark);border-radius:30px;padding:24px;display:flex;flex-direction:column;gap:2px;box-shadow:0 10px 0 #c9921a;position:relative;overflow:hidden}
+.soon h3{margin:0 0 8px;font-size:19px;font-weight:700}
+.soon .lead{color:var(--dark);opacity:.75}
+.row{display:flex;align-items:center;gap:14px;padding:10px 0;border:0;border-top:2px dotted rgba(33,23,58,.25);cursor:pointer;background:none;width:100%;text-align:left;color:var(--dark);font:inherit;min-height:56px;border-radius:0;box-shadow:none}
+.row:active{transform:none;box-shadow:none}
+.row .d{font-weight:700;font-size:26px;min-width:2.6ch;text-align:center;line-height:1;background:#fff;border-radius:12px;padding:8px 6px}
+.row .m{font-size:13px;opacity:.7}
+.row .n{font-weight:600;flex:1}
+.row .in{font-size:13px;font-weight:600;white-space:nowrap}
+.months{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:18px;margin-top:20px}
+.month{border-radius:22px;background:var(--card);overflow:hidden;box-shadow:0 6px 0 var(--mc2),0 0 0 2px var(--mc) inset}
+.month h3{margin:0;font-size:18px;font-weight:700;text-transform:capitalize;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:var(--mc);color:var(--mt)}
+.month h3 small{font-size:13px;font-weight:600;text-transform:none;opacity:.85;white-space:nowrap}
+.month .list{padding:8px 18px 14px}
+.month.now{transform:rotate(-1deg)}
+.month.now h3{flex-wrap:wrap;gap:4px 10px}.month.now h3::before{content:"este mes";order:3;font-size:12px;font-weight:700;background:#fff;color:var(--dark);padding:3px 10px;border-radius:999px;text-transform:none;white-space:nowrap}
+.month .empty{color:var(--mute);font-size:14px;padding:8px 0}
+.person{display:flex;align-items:center;gap:12px;padding:8px 6px;cursor:pointer;width:100%;background:none;border:0;color:var(--ink);font:inherit;text-align:left;min-height:48px;border-radius:12px;box-shadow:none}
+.person:hover{background:var(--soft)}
+.person:active{transform:none;box-shadow:none}
+.person .d{font-weight:700;font-size:20px;min-width:2.2ch;text-align:center;color:var(--mc3)}
+.person .av{width:38px;height:38px;font-size:14px;border-width:2px;background:var(--mc);color:var(--mt)}
+.person .n{flex:1;font-weight:500}
+.person .c{font-size:12px;font-weight:700;color:#fff;background:var(--pink);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.person .c:empty{display:none}
+.emptybig{background:var(--card);border:3px dashed var(--pinkL);border-radius:30px;padding:40px 24px;text-align:center;grid-column:1/-1}
+.emptybig p{color:var(--mute);margin:6px 0 18px}
+.ov{position:fixed;inset:0;background:rgba(21,17,29,.6);display:none;align-items:flex-start;justify-content:center;padding:4vh 12px;overflow-y:auto;z-index:10}
+.ov.on{display:flex}
+.panel{background:var(--bg);color:var(--ink);border-radius:30px;width:min(880px,100%);position:relative;animation:rise .3s cubic-bezier(.2,1.4,.5,1);overflow:hidden}
+.panel .in{padding:clamp(20px,4vw,40px)}
+.panel.sm{width:min(560px,100%)}
+@keyframes rise{from{transform:translateY(20px) scale(.97);opacity:0}}
+@media(prefers-reduced-motion:reduce){.panel{animation:none}}
+.x{position:absolute;top:14px;right:14px;width:44px;padding:0;background:#fff;color:var(--dark);font-size:22px;box-shadow:0 3px 0 rgba(0,0,0,.2);z-index:2}
+.phead{background:var(--blue);color:#fff;padding:28px clamp(20px,4vw,40px) 26px;position:relative;overflow:hidden}
+.phead.pk{background:var(--pink)}
+.phead svg.party{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.phead>*:not(svg){position:relative}
+.phead .lead{color:#fff;opacity:.9}
+label{display:block;font-weight:600;font-size:14px;margin:16px 0 6px}
+input,select,textarea{width:100%;font:16px/1.4 Poppins,sans-serif;padding:12px 14px;border:2px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);min-height:48px}
+textarea{min-height:110px;resize:vertical}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.err{color:#d0204f;font-size:14px;font-weight:500;margin:10px 0 0}
+.err:empty{display:none}
+.prof{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding-right:44px}
+.prof .av{width:112px;height:112px;font-size:38px;border-width:5px}
+.prof h2{font-size:clamp(28px,4vw,42px);margin:0;line-height:1.05}
+.prof p{margin:6px 0 0}
+.prof p .pill{margin-right:6px}
+.bigverse{margin:0;padding:22px 26px;background:var(--yel);color:var(--dark);border-radius:22px;font-size:18px;line-height:1.5;transform:rotate(-.6deg);box-shadow:0 6px 0 #c9921a}
+.bigverse q{font-style:italic;quotes:"“" "”"}
+.bigverse cite{display:block;font-style:normal;font-weight:700;font-size:14px;margin-top:10px}
+.wall{display:grid;align-items:start;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:22px 18px;margin-top:18px}
+.card{background:var(--card);padding:12px 12px 14px;border-radius:6px;display:flex;flex-direction:column;gap:8px;position:relative;box-shadow:0 8px 20px rgba(33,23,58,.12);transform:rotate(var(--r,0deg))}
+.card::before{content:"";position:absolute;top:-10px;left:50%;width:76px;height:22px;transform:translateX(-50%) rotate(-3deg);background:var(--tape);opacity:.85;border-radius:3px}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;background:var(--soft)}
+.card p{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.card .by{font-size:13px;color:var(--mute);display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
+.write{margin-top:30px;padding:22px;border-radius:22px;background:var(--soft)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;color:var(--mute);font-size:14px}
+.preview{margin-top:10px;max-width:200px;border-radius:12px;display:none;border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+
+/* animaciones */
+.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+@media(prefers-reduced-motion:no-preference){
+.bunting{animation:sway 2.6s ease-in-out infinite alternate;transform-origin:50% 0}
+.bunting{background-position:0 0}
+@keyframes sway{from{background-position:-6px 0;transform:scaleY(1)}to{background-position:6px 2px;transform:scaleY(1.08)}}
+.party .bl{animation:float 4.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.party .bl:nth-of-type(2){animation-duration:5s;animation-delay:-1.4s}
+.party .bl:nth-of-type(3){animation-duration:4.6s;animation-delay:-2.6s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-16px) rotate(2.5deg)}}
+.next,.soon,.month,.person,.row,.card{transition:transform .25s cubic-bezier(.2,1.4,.5,1),box-shadow .25s}
+.next:hover{transform:translateY(-5px) rotate(-.4deg)}
+.soon:hover{transform:translateY(-4px)}
+.month:hover{transform:translateY(-6px) rotate(-.5deg)}
+.month.now:hover{transform:translateY(-6px) rotate(-1.5deg)}
+.person:hover,.row:hover{transform:translateX(4px)}
+.card:hover{transform:rotate(0deg) translateY(-8px) scale(1.03);box-shadow:0 18px 30px rgba(33,23,58,.2);z-index:1}
+}
+@media(max-width:760px){.hero{grid-template-columns:minmax(0,1fr)}.next{min-height:320px}}
+@media(max-width:600px){.next svg.party{inset:-10px -30px auto 42%;width:auto;height:62%}.two{grid-template-columns:minmax(0,1fr)}.mark small{display:none}.card{--r:0deg!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="mark">permanente<small>Cumpleaños del equipo</small></div>
+  <button id="regBtn" type="button">Registrar mi cumpleaños</button>
+</header>
+<div class="bunting" aria-hidden="true"></div>
+
+<main class="band"><div class="wrap">
+  <h1>¡Celebramos a cada uno!</h1>
+  <p class="lead">Registra tu fecha y tu versículo favorito. Toca a cualquier persona para dejarle palabras bonitas y una foto juntos.</p>
+  <div class="note" id="status">Cargando el tablero…</div>
+
+  <section class="hero" id="hero"></section>
+
+  <h2 style="margin-top:44px">Todo el año</h2>
+  <div class="months" id="months"></div>
+</div></main>
+
+<footer class="band" style="padding-top:0"><div class="wrap foot"><span>Hecho con amor por el equipo de Permanente</span><button type="button" class="link" id="adminBtn">Soy administradora</button></div></footer>
+
+<!-- Clave -->
+<div class="ov" id="keyOv" role="dialog" aria-modal="true" aria-labelledby="keyTitle">
+  <form class="panel sm" id="keyForm" novalidate>
+    <div class="phead pk"><svg class="party" data-party="1" aria-hidden="true"></svg>
+    <h2 id="keyTitle">Clave del equipo</h2>
+    <p class="lead" id="keyLead">Escribe la clave que te compartió el equipo para entrar.</p></div>
+    <div class="in">
+    <label for="kVal">Clave</label>
+    <input id="kVal" type="password" autocomplete="off" required>
+    <p class="err" id="keyErr"></p>
+    <div class="actions"><button type="submit">Entrar</button><button type="button" class="ghost" id="keyCancel" style="display:none" data-close>Cancelar</button></div>
+    </div>
+  </form>
+</div>
+
+<!-- Registro -->
+<div class="ov" id="regOv" role="dialog" aria-modal="true" aria-labelledby="regTitle">
+  <form class="panel sm" id="regForm" novalidate>
+    <button type="button" class="x" data-close aria-label="Cerrar">×</button>
+    <div class="phead pk"><svg class="party" data-party="1" aria-hidden="true"></svg>
+    <h2 id="regTitle">Tu cumpleaños</h2>
+    <p class="lead">Así el equipo podrá celebrarte. Solo ponemos día y mes.</p></div><div class="in">
+    <label for="fName">Tu nombre</label>
+    <input id="fName" maxlength="60" autocomplete="name" required>
+    <div class="two">
+      <div><label for="fDay">Día</label><select id="fDay" required></select></div>
+      <div><label for="fMonth">Mes</label><select id="fMonth" required></select></div>
+    </div>
+    <label for="fVerse">Tu versículo favorito</label>
+    <textarea id="fVerse" maxlength="600" placeholder="Escribe el texto del versículo"></textarea>
+    <label for="fRef">Cita</label>
+    <input id="fRef" maxlength="60" placeholder="Ej. Juan 15:5">
+    <label for="fPhoto">Una foto tuya (opcional)</label>
+    <input id="fPhoto" type="file" accept="image/*">
+    <img class="preview" id="fPrev" alt="Vista previa de tu foto">
+    <p class="err" id="regErr"></p>
+    <div class="actions">
+      <button type="submit" id="regSave">Guardar</button>
+      <button type="button" class="ghost" data-close>Cancelar</button>
+    </div></div>
+  </form>
+</div>
+
+<!-- Muro -->
+<div class="ov" id="wallOv" role="dialog" aria-modal="true" aria-labelledby="wName">
+  <div class="panel">
+    <button type="button" class="x" data-close aria-label="Cerrar">×</button>
+    <div id="wHead"></div><div class="in">
+    <h2>Palabras para <span id="wFirst"></span></h2>
+    <div class="wall" id="wList"></div>
+    <form class="write" id="msgForm" novalidate>
+      <h2>Déjale un mensaje</h2>
+      <label for="mName">Tu nombre</label>
+      <input id="mName" maxlength="60" autocomplete="name" required>
+      <label for="mText">Tu mensaje</label>
+      <textarea id="mText" maxlength="1500" required placeholder="Escribe algo bonito…"></textarea>
+      <label for="mPhoto">¿Tienes una foto con esta persona? (opcional)</label>
+      <input id="mPhoto" type="file" accept="image/*">
+      <img class="preview" id="mPrev" alt="Vista previa de la foto">
+      <p class="err" id="msgErr"></p>
+      <div class="actions"><button type="submit" id="msgSave">Publicar mensaje</button></div>
+    </form>
+        <div class="actions" id="ownerTools"></div>
+  </div></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
